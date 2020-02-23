@@ -1,4 +1,19 @@
 <?php
+function get($url){
+    $ch = curl_init();
+    $options = array(CURLOPT_URL => $url,
+        CURLOPT_HEADER => FALSE,
+        CURLOPT_SSL_VERIFYPEER => FALSE,
+        CURLOPT_SSL_VERIFYHOST => FALSE,
+        CURLOPT_RETURNTRANSFER => TRUE,
+        CURLOPT_CONNECTTIMEOUT => 5
+    );
+    curl_setopt_array($ch, $options);
+    $file_contents = curl_exec($ch);
+    curl_close($ch);
+    return $file_contents;
+}
+
 function getNodeStr($data){
     $node = '  - name: "' . $data->ps . '"' . PHP_EOL;
     $node .= '    type: vmess' . PHP_EOL;
@@ -35,8 +50,10 @@ function creatProxyList($v2Info){
     return $ret;
 }
 
-#all为v2订阅内容
-$all = '';
+#url为v2订阅链接
+$url = '';
+
+$all = get($url);
 $proxy = creatProxyList($all);
 //开始输出配置信息
 
