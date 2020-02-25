@@ -51,7 +51,7 @@ function creatProxyList($v2Info){
 }
 
 #url为v2订阅链接
-$url = '';
+$url = 'https://raw.githubusercontent.com/cdp2020/v2ray/master/README.md';
 
 $all = get($url);
 $proxy = creatProxyList($all);
